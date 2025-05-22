@@ -94,8 +94,8 @@ input {
 	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 	position: relative;
 	overflow: hidden;
-	width: 768px;
-	max-width: 100%;
+	width: 90%;
+	max-width: 768px;
 	min-height: 480px;
 }
 
@@ -284,4 +284,157 @@ footer i {
 footer a {
 	color: #3c97bf;
 	text-decoration: none;
+}
+
+@media (max-width: 768px) {
+	body {
+		height: auto;
+		margin: 0;
+	}
+
+	h1 {
+		font-size: 1.8em;
+	}
+
+	h2 {
+		font-size: 1.5em;
+		margin-bottom: 20px;
+	}
+
+	p {
+		font-size: 13px;
+		margin: 15px 0 20px;
+	}
+
+	button {
+		padding: 10px 30px;
+		font-size: 11px;
+	}
+
+	.container {
+		min-height: auto;
+		height: auto; /* Ensure height adjusts to content */
+		width: 100%; /* Ensure container takes full width on small screens */
+		border-radius: 0; /* Optional: remove border-radius for a full-width look */
+		box-shadow: none; /* Optional: remove shadow for a flatter look on mobile */
+		display: flex;
+		flex-direction: column;
+	}
+
+	/* 
+	  Assuming .sign-in-container and .sign-up-container are the direct children of .container 
+	  that also have the .form-container class.
+	  The previous .form-container rule was likely intended for these.
+	  We will ensure these specific containers are styled for relative positioning and full width.
+	*/
+	.form-container { /* This rule might be redundant if sign-in/sign-up are styled directly */
+		position: relative; 
+		width: 100%;
+		top: 0;
+		left: 0;
+		transform: none;
+		/* display: flex and flex-direction: column was here, but it makes more sense on .container */
+		/* or on the sign-in/sign-up containers if they are supposed to manage internal flex items */
+	}
+	
+	.sign-in-container {
+		width: 100%;
+		display: flex; /* Show by default */
+		opacity: 1; /* Explicitly set for clarity */
+		transform: none; /* Reset transform */
+		z-index: 2; /* Ensure it's above sign-up by default if overlapping initially */
+		order: 2;
+		position: relative; /* Ensure positioning context if not already set */
+		top: 0;
+		left: 0;
+	}
+
+	.sign-up-container {
+		width: 100%;
+		display: none; /* Hide by default */
+		opacity: 1; /* Reset from desktop styles */
+		position: relative; /* Ensure it stacks correctly and positioning context */
+		transform: none; /* Reset transform */
+		z-index: 1; /* Lower z-index by default */
+		order: 2;
+		top: 0;
+		left: 0;
+	}
+
+	.container.right-panel-active .sign-in-container {
+		display: none; /* Hide when sign-up is active */
+		transform: none; /* Ensure no movement */
+	}
+
+	.container.right-panel-active .sign-up-container {
+		display: flex; /* Show when sign-up is active */
+		opacity: 1;
+		z-index: 5; /* Ensure it's on top when active */
+		transform: none; /* Ensure no movement */
+		animation: none; /* Remove desktop animation */
+	}
+	
+	/* Adjust form padding */
+	form {
+		padding: 0 20px;
+	}
+
+	.overlay-container {
+		display: block; /* Changed from none */
+		position: relative;
+		width: 100%;
+		left: 0;
+		top: 0;
+		height: auto;
+		transform: none;
+		z-index: auto; /* Or a specific value if needed for stacking above forms, e.g., 3 or 4 */
+		margin-top: 0; /* Remove margin-top if order handles spacing, or adjust as needed */
+		order: 1;
+	}
+
+	.overlay {
+		position: relative;
+		width: 100%;
+		left: 0;
+		height: auto;
+		transform: none !important;
+		display: flex;
+		flex-direction: column;
+		/* background properties are inherited and should be fine */
+	}
+
+	.overlay-panel {
+		position: relative;
+		width: 100%;
+		height: auto;
+		padding: 20px 15px;
+		transform: none !important; /* Overriding desktop transforms */
+		display: flex !important; /* Ensure visibility and flex properties */
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		/* text-align is already center from base */
+	}
+
+	.overlay-left {
+		transform: none !important; /* Reset specific desktop transform */
+		/* Add margin if needed to separate from overlay-right */
+		margin-bottom: 20px; /* Example spacing */
+	}
+
+	.overlay-right {
+		transform: none !important; /* Reset specific desktop transform */
+	}
+	
+	.social-container a {
+		margin: 0 10px;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+	}
+
+	/* Ensure footer is not fixed to allow scrolling */
+	footer {
+		position: relative; 
+	}
 }
